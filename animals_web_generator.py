@@ -1,4 +1,4 @@
-# Step 4 - Like A Pro
+# Bonus - Improved HTML & CSS
 
 import json
 
@@ -24,12 +24,7 @@ def write_text_file(file_path, content):
 
 
 def serialize_animal(animal):
-    """Erzeugt für ein Tier eine HTML-Karte mit Titel und Detailtext.
-
-    Der Tiername steht als Titel (card__title), Diet, erste Location
-    und Type folgen als beschrifteter Text (card__text).
-    Felder, die nicht vorhanden sind, werden übersprungen.
-    """
+    """Erzeugt für ein Tier eine HTML-Karte mit Titel und Detailliste. """
     characteristics = animal.get("characteristics", {})
     locations = animal.get("locations", [])
 
@@ -38,14 +33,22 @@ def serialize_animal(animal):
     if "name" in animal:
         output += f'  <div class="card__title">{animal["name"]}</div>\n'
 
-    output += '  <p class="card__text">\n'
+    output += '  <div class="card__text">\n'
+    output += '    <ul class="card__list">\n'
     if "diet" in characteristics:
-        output += f"      <strong>Diet:</strong> {characteristics['diet']}<br/>\n"
+        output += f"      <li class=\"card__list-item\"><strong>Diet:</strong> {characteristics['diet']}</li>\n"
     if locations:
-        output += f"      <strong>Location:</strong> {locations[0]}<br/>\n"
+        output += f"      <li class=\"card__list-item\"><strong>Location:</strong> {locations[0]}</li>\n"
     if "type" in characteristics:
-        output += f"      <strong>Type:</strong> {characteristics['type']}<br/>\n"
-    output += "  </p>\n"
+        output += f"      <li class=\"card__list-item\"><strong>Type:</strong> {characteristics['type']}</li>\n"
+    if "lifespan" in characteristics:
+        output += f"      <li class=\"card__list-item\"><strong>Lifespan:</strong> {characteristics['lifespan']}</li>\n"
+    if "color" in characteristics:
+        output += f"      <li class=\"card__list-item\"><strong>Color:</strong> {characteristics['color']}</li>\n"
+    if "skin_type" in characteristics:
+        output += f"      <li class=\"card__list-item\"><strong>Skin Type:</strong> {characteristics['skin_type']}</li>\n"
+    output += "    </ul>\n"
+    output += "  </div>\n"
 
     output += "</li>\n"
     return output
