@@ -1,3 +1,5 @@
+# Step 3 - Making It Nice
+
 import json
 
 PLACEHOLDER = "__REPLACE_ANIMALS_INFO__"
@@ -22,33 +24,29 @@ def write_text_file(file_path, content):
 
 
 def serialize_animal(animal):
-    """Erzeugt den Text für ein Tier (Name, Diet, erste Location, Type).
-
-    Felder, die nicht vorhanden sind, werden übersprungen.
-    """
+    """Erzeugt für ein Tier ein HTML-Listenelement (Karte).
+    vorhanden sind, werden übersprungen. """
     characteristics = animal.get("characteristics", {})
     locations = animal.get("locations", [])
 
-    output = ""
+    output = '<li class="cards__item">\n'
     if "name" in animal:
-        output += f"Name: {animal['name']}\n"
+        output += f"Name: {animal['name']}<br/>\n"
     if "diet" in characteristics:
-        output += f"Diet: {characteristics['diet']}\n"
+        output += f"Diet: {characteristics['diet']}<br/>\n"
     if locations:
-        output += f"Location: {locations[0]}\n"
+        output += f"Location: {locations[0]}<br/>\n"
     if "type" in characteristics:
-        output += f"Type: {characteristics['type']}\n"
+        output += f"Type: {characteristics['type']}<br/>\n"
+    output += "</li>\n"
     return output
 
 
 def build_animals_output(animals_data):
-    """Erzeugt einen String mit den Daten aller Tiere.
-
-    Zwischen zwei Tieren steht eine Leerzeile.
-    """
+    """Erzeugt einen HTML-String mit einer Karte pro Tier."""
     output = ""
     for animal in animals_data:
-        output += serialize_animal(animal) + "\n"
+        output += serialize_animal(animal)
     return output
 
 
